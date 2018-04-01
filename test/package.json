@@ -1,0 +1,31 @@
+{
+  "name": "jrus-test",
+  "version": "1.0.3",
+  "description": "",
+  "main": "./dist/index.js",
+  "files": [
+    "lib/",
+    "dist/",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "babel src -d dist -s"
+  },
+  "keywords": [],
+  "author": "Yi Jin",
+  "license": "MIT",
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-plugin-transform-async-to-generator": "^6.24.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.0",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "babel-polyfill": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-es2017": "^6.24.1",
+    "babel-register": "^6.26.0"
+  },
+  "dependencies": {
+    "jrus-client": "^1.0.2",
+    "jrus-server": "^1.0.3"
+  }
+}
