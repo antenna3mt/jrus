@@ -72,9 +72,3 @@ const client = new JrusClient('http://localhost:3000');
   }
 })();
 ```
-
-## Repo
-
-- [jrus-share](https://github.com/antenna3mt/jrus-share)
-- [jrus-client](https://github.com/antenna3mt/jrus-client)
-- [jrus-server](https://github.com/antenna3mt/jrus-server)
