@@ -1,6 +1,6 @@
 {
   "name": "jrus-share",
-  "version": "1.0.2",
+  "version": "1.0.7",
   "description": "",
   "main": "./dist/index.js",
   "files": [
@@ -23,5 +23,8 @@
     "babel-preset-env": "^1.6.1",
     "babel-preset-es2017": "^6.24.1",
     "babel-register": "^6.26.0"
+  },
+  "dependencies": {
+    "is_js": "^0.9.0"
   }
 }

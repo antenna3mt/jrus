@@ -14,8 +14,8 @@ class B {
 
 
 const server = new JrusServer()
-  .register(A)
   .register(B);
 
 server.listen(3000);
 console.warn('listening');
+

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { RpcRequest, JsonRpcVersion, ServerError, JrusError } from 'jrus-share';
+import is from 'is_js';
+import { RpcRequest, JsonRpcVersion, ServerError, JrusError, NetworkConnectError, UnknownError } from 'jrus-share';
 
 export class JrusClient {
   constructor(url) {
@@ -26,26 +27,32 @@ export class JrusClient {
                   method: `${service}.${action}`,
                   id: null,
                 });
+              } catch (e) {
+                throw new JrusError(e);
+              }
 
+              try {
                 res = await axios({
                   method: 'post',
                   url,
                   data: req,
                 }).then(r => r.data);
               } catch (e) {
-                throw new Error('network');
+                throw new JrusError(NetworkConnectError);
               }
 
               const { result, error } = res;
-              if (error) {
-                const { code, data } = error || {};
+              if (is.existy(error) && is.object(error)) {
+                const { code, data } = error;
                 if (code === ServerError.code) {
                   throw new JrusError(data);
                 } else {
                   throw new JrusError(error);
                 }
-              } else {
+              } else if (is.existy(result)) {
                 return result;
+              } else {
+                throw new JrusError(UnknownError);
               }
             };
           },

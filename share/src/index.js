@@ -1,2 +1,2 @@
-export { JrusError } from './share';
+export * from './error';
 export * from './jsonrpc';
