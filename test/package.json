@@ -25,7 +25,7 @@
     "babel-register": "^6.26.0"
   },
   "dependencies": {
-    "jrus-client": "^1.0.2",
-    "jrus-server": "^1.0.3"
+    "jrus-client": "^1.0.9",
+    "jrus-server": "^1.0.9"
   }
 }

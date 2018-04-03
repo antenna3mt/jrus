@@ -1,6 +1,6 @@
 {
   "name": "jrus-server",
-  "version": "1.0.7",
+  "version": "1.0.9",
   "description": "",
   "main": "./dist/index.js",
   "files": [
@@ -27,6 +27,6 @@
   "dependencies": {
     "co-body": "^5.1.1",
     "is_js": "^0.9.0",
-    "jrus-share": "^1.0.7"
+    "jrus-share": "^1.0.9"
   }
 }

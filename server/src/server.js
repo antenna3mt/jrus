@@ -50,7 +50,7 @@ export class JrusServer {
     const services = { ...this.services };
     return (method) => {
       const [service, action] = method.split('.');
-      if (service && action && services[service] && services[service][action]) return services[service][action];
+      if (service && action && services[service] && services[service][action]) return services[service][action].bind(services[service]);
       return null;
     };
   }

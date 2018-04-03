@@ -1,22 +1,21 @@
-import { JrusServer, JrusError } from 'jrus-server';
+import { JrusServer } from 'jrus-server';
 
-class Utility {
-  async time() {
-    return new Date();
-  }
-  async sayHi({ name }) {
-    return { say: `hello, ${name} ` };
-  }
-  async wrong() {
-    throw new JrusError({ code: 10056, message: 'sample error' });
-  }
-}
 
-// 新建一个server
-const server = new JrusServer();
+const server = new JrusServer()
+  .register(class Blog {
+    constructor() {
+      this.articles = [];
+    }
+    async get() {
+      console.log(this.articles);
+      return this.articles;
+    }
+    async save(article) {
+      this.articles.push(article);
+      return '1';
+    }
+  });
 
-// 注册一个service
-server.register(Utility);
-
-// 运行server
 server.listen(3000);
+console.warn('listening');
+
