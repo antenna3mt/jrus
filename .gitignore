@@ -13,3 +13,4 @@ npm-debug.log*
 .idea
 .vscode
 _tasks
+_archive

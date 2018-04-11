@@ -1,6 +1,6 @@
 // jsonrpc 2.0
 import is from 'is_js';
-import { ServerError, InvalidRequestError, InvalidParamsError, MethodNotFoundError, ParseError } from '.';
+import { ServerError, InvalidRequestError, InvalidParamsError, UnknownError } from '.';
 
 export const JsonRpcVersion = '2.0';
 
@@ -23,6 +23,10 @@ export class RpcError {
     if (RpcError.isGeneric(obj)) {
       const { message, code, data } = obj;
       Object.assign(this, { message, code, data });
+    } else if (is.error(obj)) {
+      this.code = UnknownError.code;
+      this.message = obj.message;
+      this.data = undefined;
     } else {
       this.code = ServerError.code;
       this.message = ServerError.message;
@@ -108,7 +112,7 @@ export class RpcRequest {
  *
  */
 
-// for Success
+// for Success Response
 export class RpcSuccessResponse {
   constructor(result, jsonrpc = JsonRpcVersion, id = null) {
     this.jsonrpc = jsonrpc;
@@ -117,7 +121,7 @@ export class RpcSuccessResponse {
   }
 }
 
-// for Error
+// for Error Response
 export class RpcErrorResponse {
   constructor(err, jsonrpc = JsonRpcVersion, id = null) {
     this.jsonrpc = jsonrpc;
@@ -126,60 +130,61 @@ export class RpcErrorResponse {
   }
 }
 
-/**
- * Rpc runner
- */
-export class RpcRunner {
-  constructor(methodSelector) {
-    this.methodSelector = methodSelector;
-  }
 
-  // exec the action with method and params; return the result from method calling.
-  async runCore(method, params) {
-    const callable = await this.methodSelector(method);
-    if (is.not.function(callable)) throw MethodNotFoundError;
-    return is.array(params) ? callable(...params) : callable({ ...params });
-  }
+// /**
+//  * Rpc runner
+//  */
+// export class RpcRunner {
+//   constructor(methodSelector) {
+//     this.methodSelector = methodSelector;
+//   }
 
-  // exec the action with request object; return the response object;
-  async runRequest(req) {
-    const {
-      jsonrpc, id, method, params,
-    } = req;
-    try {
-      const result = await this.runCore(method, params);
-      if (req.isNotification() !== true) return new RpcSuccessResponse(result, jsonrpc, id);
-    } catch (e) {
-      return new RpcErrorResponse(e, jsonrpc, id);
-    }
-  }
+//   // exec the action with method and params; return the result from method calling.
+//   async runCore(method, params) {
+//     const callable = await this.methodSelector(method);
+//     if (is.not.function(callable)) throw MethodNotFoundError;
+//     return is.array(params) ? callable(...params) : callable({ ...params });
+//   }
 
-  // exec single request
-  async singleRun(obj) {
-    let req;
-    try {
-      req = new RpcRequest(obj);
-    } catch (e) {
-      return new RpcErrorResponse(e);
-    }
-    const res = await this.runRequest(req);
-    if (!req.isNotification()) return res;
-  }
+//   // exec the action with request object; return the response object;
+//   async runRequest(req) {
+//     const {
+//       jsonrpc, id, method, params,
+//     } = req;
+//     try {
+//       const result = await this.runCore(method, params);
+//       if (req.isNotification() !== true) return new RpcSuccessResponse(result, jsonrpc, id);
+//     } catch (e) {
+//       return new RpcErrorResponse(e, jsonrpc, id);
+//     }
+//   }
 
-  // exec batch requests
-  async batchRun(objs) {
-    if (is.empty(objs)) return new RpcErrorResponse(InvalidRequestError);
-    const all = [];
-    for (let i = 0; i < objs.length; i += 1) {
-      const res = await this.singleRun(objs[i]);
-      if (is.existy(res)) all.push(res);
-    }
-    if (is.not.empty(all)) return all;
-  }
+//   // exec single request
+//   async singleRun(obj) {
+//     let req;
+//     try {
+//       req = new RpcRequest(obj);
+//     } catch (e) {
+//       return new RpcErrorResponse(e);
+//     }
+//     const res = await this.runRequest(req);
+//     if (!req.isNotification()) return res;
+//   }
 
-  // the simplest entrance for exec
-  async run(obj) {
-    if (is.not.existy(obj)) return new RpcErrorResponse(ParseError);
-    return is.array(obj) ? this.batchRun(obj) : this.singleRun(obj);
-  }
-}
+//   // exec batch requests
+//   async batchRun(objs) {
+//     if (is.empty(objs)) return new RpcErrorResponse(InvalidRequestError);
+//     const all = [];
+//     for (let i = 0; i < objs.length; i += 1) {
+//       const res = await this.singleRun(objs[i]);
+//       if (is.existy(res)) all.push(res);
+//     }
+//     if (is.not.empty(all)) return all;
+//   }
+
+//   // the simplest entrance for exec
+//   async run(obj) {
+//     if (is.not.existy(obj)) return new RpcErrorResponse(ParseError);
+//     return is.array(obj) ? this.batchRun(obj) : this.singleRun(obj);
+//   }
+// }

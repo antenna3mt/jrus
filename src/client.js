@@ -1,6 +1,6 @@
 import axios from 'axios';
 import is from 'is_js';
-import { RpcRequest, JsonRpcVersion, ServerError, JrusError, NetworkConnectError, UnknownError } from 'jrus-share';
+import { RpcRequest, JsonRpcVersion, ServerError, JrusError, NetworkConnectError, UnknownError } from '.';
 
 export class JrusClient {
   constructor(url) {
@@ -49,10 +49,8 @@ export class JrusClient {
                 } else {
                   throw new JrusError(error);
                 }
-              } else if (is.existy(result)) {
-                return result;
               } else {
-                throw new JrusError(UnknownError);
+                return result;
               }
             };
           },

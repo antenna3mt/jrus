@@ -1,19 +1,26 @@
 {
-  "name": "jrus-test",
-  "version": "1.0.3",
-  "description": "",
+  "name": "jrus",
+  "version": "1.1.0",
+  "description": "Jrus is a server-client communication utility package, which facilitates **seamless** remote procedure call.",
   "main": "./dist/index.js",
+  "scripts": {
+    "build": "babel src -d dist -s"
+  },
   "files": [
-    "lib/",
     "dist/",
     "LICENSE"
   ],
-  "scripts": {
-    "build": "babel src -d dist -s"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antenna3mt/jrus.git"
   },
   "keywords": [],
   "author": "Yi Jin",
   "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antenna3mt/jrus/issues"
+  },
+  "homepage": "https://github.com/antenna3mt/jrus#readme",
   "devDependencies": {
     "babel-core": "^6.26.0",
     "babel-plugin-transform-async-to-generator": "^6.24.1",
@@ -25,7 +32,8 @@
     "babel-register": "^6.26.0"
   },
   "dependencies": {
-    "jrus-client": "^1.0.9",
-    "jrus-server": "^1.0.9"
+    "axios": "^0.18.0",
+    "co-body": "^5.1.1",
+    "is_js": "^0.9.0"
   }
 }
