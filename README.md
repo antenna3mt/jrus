@@ -7,16 +7,14 @@ The communication protocol Jrus uses is [jsonrpc 2.0](http://www.jsonrpc.org/spe
 
 ## Install
 
-Client: `npm i jrus-client`
-
-Server: `npm i jrus-server`
+`npm i jrus`
 
 ## Quick Start
 
 ### Server side
 
 ```javascript
-import { JrusServer, JrusError } from 'jrus-server';
+import { JrusServer, JrusError } from 'jrus';
 
 // create a new server instance
 const server = new JrusServer();
@@ -43,7 +41,7 @@ server.listen(3000);
 ### Client side
 
 ```javascript
-import { JrusClient } from 'jrus-client';
+import { JrusClient } from 'jrus';
 
 // create a client and connect http://localhost:3000
 const client = new JrusClient('http://localhost:3000');
