@@ -49,6 +49,10 @@ class B {
   async rpc() {
     return this.rpc;
   }
+
+  async test5() {
+    return this.test4();
+  }
 }
 
 

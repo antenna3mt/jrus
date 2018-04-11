@@ -20,9 +20,11 @@ class RpcRunner {
       const beforeRun = (is.function(services[service].before)) ? services[service].before : async () => { };
       const afterRun = (is.function(services[service].after)) ? services[service].after : async () => { };
       return async function runnable(...args) {
-        await beforeRun.bind({ ...this, ...services[service] })();
-        const result = await services[service][action].bind({ ...this, ...services[service] })(args);
-        await afterRun.bind({ ...this, ...services[service] })();
+        const ctx = Object.assign(Object.create(Object.getPrototypeOf(services[service])), services[service]);
+        Object.assign(ctx, this);
+        await beforeRun.bind(ctx)();
+        const result = await services[service][action].bind(ctx)(args);
+        await afterRun.bind(ctx)();
         return result;
       };
     }

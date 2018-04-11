@@ -27,6 +27,7 @@ client.setHeader('auth', '123');
 
   console.error(await client.services.B.test2());
   console.error(await client.services.B.test4());
+  console.error(await client.services.B.test5());
 
   console.error(await client.services.B.rpc(2));
   // console.log(await client.services.B.test2());
