@@ -1,6 +1,7 @@
 import { JrusClient } from '../src';
 
-const client = new JrusClient('http://localhost:3000');
+const client = new JrusClient('http://localhost:3002');
+client.setHeader('auth', '123');
 
 (async () => {
   let result;

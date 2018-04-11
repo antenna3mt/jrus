@@ -5,10 +5,15 @@ import { RpcRequest, JsonRpcVersion, ServerError, JrusError, NetworkConnectError
 export class JrusClient {
   constructor(url) {
     this.url = url;
+    this.headers = {};
+  }
+
+  setHeader(key, value) {
+    this.headers[key] = value;
   }
 
   get services() {
-    const { url } = this;
+    const { url, headers } = this;
     return new Proxy({}, {
       get(_, service) {
         if (service === 'inspect') return null;
@@ -33,6 +38,7 @@ export class JrusClient {
 
               try {
                 res = await axios({
+                  headers,
                   method: 'post',
                   url,
                   data: req,

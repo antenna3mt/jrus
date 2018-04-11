@@ -2,7 +2,7 @@ import { JrusServer, JrusError } from '../src';
 
 class B {
   async before() {
-    // console.error('before');
+    console.error(this.req.headers.auth);
   }
 
   async after() {
@@ -58,6 +58,6 @@ const server = new JrusServer()
     bb: () => '??',
     cc: async () => 'kk',
   });
-server.listen(3000);
+server.listen(3002);
 console.warn('listening');
 
