@@ -116,7 +116,7 @@ export class JrusServer {
 
   // mount
   mount(map) {
-    Object.assign(this.mount, map);
+    Object.assign(this.mounts, map);
     return this;
   }
 
