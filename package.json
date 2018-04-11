@@ -1,6 +1,6 @@
 {
   "name": "jrus",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Jrus is a server-client communication utility package, which facilitates **seamless** remote procedure call.",
   "main": "./dist/index.js",
   "scripts": {

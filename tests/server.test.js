@@ -1,6 +1,15 @@
 import { JrusServer, JrusError } from '../src';
 
 class B {
+  constructor() {
+    this.count = 0;
+  }
+
+  async counter() {
+    this.count += 1;
+    return this.count;
+  }
+
   async before() {
     console.error(this.req.headers.auth);
   }
@@ -52,6 +61,10 @@ class B {
 
   async test5() {
     return this.test4();
+  }
+
+  async test6({ name }) {
+    return name;
   }
 }
 

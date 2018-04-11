@@ -23,7 +23,7 @@ class RpcRunner {
         const ctx = Object.assign(Object.create(Object.getPrototypeOf(services[service])), services[service]);
         Object.assign(ctx, this);
         await beforeRun.bind(ctx)();
-        const result = await services[service][action].bind(ctx)(args);
+        const result = await services[service][action].bind(ctx)(...args);
         await afterRun.bind(ctx)();
         return result;
       };
