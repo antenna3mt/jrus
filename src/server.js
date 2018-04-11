@@ -122,7 +122,7 @@ export class JrusServer {
 
   async buildContext() {
     const obj = {};
-    const mountEntries = Object.entries(this.mount);
+    const mountEntries = Object.entries(this.mounts);
     for (let i = 0; i < mountEntries.length; i += 1) {
       const [key, fn] = mountEntries[i];
       if (is.function(fn)) {
